@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import Step from "./step";
+import { Label } from "./common";
 
 const FormContainer = () => {
   const [steps, setSteps] = useState([
@@ -16,14 +17,18 @@ const FormContainer = () => {
     setSteps([...steps, newStep]);
   };
 
+  const handleRemoveStep = (removeStepId) => {
+    setSteps(steps.filter((step) => step.id !== removeStepId));
+  };
+
   return (
     <form>
       <header>
-        <label htmlFor="step">Step</label>
-        <label htmlFor="recipientInfo">Recipient Info</label>
+        <Label htmlFor="step">Step</Label>
+        <Label htmlFor="recipientInfo">Recipient Info</Label>
       </header>
       {steps.map((step) => (
-        <Step key={step.id} step={step} />
+        <Step key={step.id} step={step} handleRemoveStep={handleRemoveStep} />
       ))}
       <button onClick={handleAddStep}>Add Step</button>
     </form>
