@@ -8,6 +8,8 @@ const FormContainer = () => {
     { id: 1, recipientInfo: { name: "Form Initiator", email: "" } },
   ]);
 
+  const [isFormCompleted, setIsFormCompleted] = useState(false);
+
   const handleAddStep = () => {
     const newStep = {
       id: steps.length + 1,
@@ -24,19 +26,36 @@ const FormContainer = () => {
     setSteps(newSteps);
   };
 
-  return (
-    <form>
-      <header>
-        <Label htmlFor="step">Step</Label>
-        <Label htmlFor="recipientInfo">Recipient Info</Label>
-      </header>
+  const handleSubmit = () => {
+    setIsFormCompleted(true);
+  };
+
+  return isFormCompleted ? (
+    <div>
+      <h1>Form Completed</h1>
+      <p>Here are all the steps:</p>
       {steps.map((step) => (
-        <Step key={step.id} step={step} handleRemoveStep={handleRemoveStep} />
+        <div>{step.id}</div>
       ))}
-      <button type="button" onClick={handleAddStep}>
-        Add Step
-      </button>
-    </form>
+    </div>
+  ) : (
+    <>
+      <h1>Add Recipients</h1>
+      <h3>Who needs to fill out the form?</h3>
+      <form onSubmit={handleSubmit}>
+        <header>
+          <Label htmlFor="step">Step</Label>
+          <Label htmlFor="recipientInfo">Recipient Info</Label>
+        </header>
+        {steps.map((step) => (
+          <Step key={step.id} step={step} handleRemoveStep={handleRemoveStep} />
+        ))}
+        <button type="button" onClick={handleAddStep}>
+          Add Step
+        </button>
+        <button type="submit">Continue</button>
+      </form>
+    </>
   );
 };
 
