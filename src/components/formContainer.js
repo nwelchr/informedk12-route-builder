@@ -8,8 +8,7 @@ const FormContainer = () => {
     { id: 1, recipientInfo: { name: "Form Initiator", email: "" } },
   ]);
 
-  const handleAddStep = (e) => {
-    e.preventDefault();
+  const handleAddStep = () => {
     const newStep = {
       id: steps.length + 1,
       recipientInfo: { name: "Unknown", email: "Unknown" },
@@ -18,7 +17,11 @@ const FormContainer = () => {
   };
 
   const handleRemoveStep = (removeStepId) => {
-    setSteps(steps.filter((step) => step.id !== removeStepId));
+    console.log(removeStepId);
+    const newSteps = steps
+      .filter((step) => step.id !== removeStepId)
+      .map((step, index) => ({ ...step, id: index + 1 }));
+    setSteps(newSteps);
   };
 
   return (
@@ -30,7 +33,9 @@ const FormContainer = () => {
       {steps.map((step) => (
         <Step key={step.id} step={step} handleRemoveStep={handleRemoveStep} />
       ))}
-      <button onClick={handleAddStep}>Add Step</button>
+      <button type="button" onClick={handleAddStep}>
+        Add Step
+      </button>
     </form>
   );
 };

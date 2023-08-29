@@ -13,7 +13,9 @@ const Step = ({ step, handleRemoveStep }) => {
       <Label htmlFor="step">{step.id}</Label>
       <Label htmlFor="recipientInfoName">{step.recipientInfo.name}</Label>
       <Label htmlFor="recipientInfoEmail">{step.recipientInfo.email}</Label>
-      <button onClick={() => handleRemoveStep(step.id)}>Remove</button>
+      <button type="button" onClick={() => handleRemoveStep(step.id)}>
+        Remove
+      </button>
     </StepContainer>
   );
 };
